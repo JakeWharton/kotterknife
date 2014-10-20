@@ -26,6 +26,16 @@ the support library `Fragment`, and recycler view's `ViewHolder`.
 
 
 
+Download
+--------
+
+Currently not available via Maven Central.
+
+For now, copy `ButterKnife.kt` into your source tree. Comments, suggestions, and pull requests
+are encouraged!
+
+
+
 License
 -------
 
