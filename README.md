@@ -1,6 +1,8 @@
 Kotter Knife
 ============
 
+![](art/logo.png)
+
 [Butter Knife][1]-esque view binding for Kotlin.
 
 ```kotlin
