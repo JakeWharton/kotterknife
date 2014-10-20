@@ -16,8 +16,8 @@ public class PersonView(context: Context, attrs: AttributeSet?) : LinearLayout(c
   // List binding.
   val nameViews: List<TextView> by bindViews(R.id.first_name, R.id.last_name)
 
-  // List binding with optional items.
-  val nameViews: List<TextView?> by bindOptionalViews(R.id.first_name, R.id.middle_name, R.id.last_name)
+  // List binding with optional items being omitted.
+  val nameViews: List<TextView> by bindOptionalViews(R.id.first_name, R.id.middle_name, R.id.last_name)
 }
 ```
 
