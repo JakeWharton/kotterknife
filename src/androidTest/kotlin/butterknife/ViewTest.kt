@@ -34,23 +34,30 @@ public class ViewTest : AndroidTestCase() {
 
   public fun testOptional() {
     class Example(context: Context) : FrameLayout(context) {
-      val name : TextView? by bindOptionalView(1)
-    }
-
-    val example = Example(getContext())
-    assertNull(example.name)
-  }
-
-  public fun testOptionalCached() {
-    class Example(context: Context) : FrameLayout(context) {
-      val name : View? by bindOptionalView(1)
+      val present: View? by bindOptionalView(1)
+      val missing: View? by bindOptionalView(2)
     }
 
     val example = Example(getContext())
     example.addView(viewWithId(1))
-    assertNotNull(example.name)
+    assertNotNull(example.present)
+    assertNull(example.missing)
+  }
+
+  public fun testOptionalCached() {
+    class Example(context: Context) : FrameLayout(context) {
+      val present: View? by bindOptionalView(1)
+      val missing: View? by bindOptionalView(2)
+    }
+
+    val example = Example(getContext())
+    example.addView(viewWithId(1))
+    assertNotNull(example.present)
+    assertNull(example.missing)
     example.removeAllViews()
-    assertNotNull(example.name)
+    example.addView(viewWithId(2))
+    assertNotNull(example.present)
+    assertNull(example.missing)
   }
 
   public fun testMissingFails() {
