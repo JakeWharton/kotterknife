@@ -21,6 +21,10 @@ public class PersonView(context: Context, attrs: AttributeSet?) : LinearLayout(c
 }
 ```
 
+These methods are available on subclasses of `Activity`, `Dialog`, `ViewGroup`, `Fragment`,
+the support library `Fragment`, and recycler view's `ViewHolder`.
+
+
 
 License
 -------
