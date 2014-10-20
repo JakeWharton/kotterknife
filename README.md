@@ -31,7 +31,12 @@ Download
 
 Currently not available via Maven Central.
 
-For now, copy `ButterKnife.kt` into your source tree. The file depends on the 'support-v4' and
+A SNAPSHOT is available in the Sonatype snapshot repo.
+```groovy
+compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+```
+
+You can also copy `ButterKnife.kt` into your source tree. The file depends on the 'support-v4' and
 'recyclerview-v7' libraries but the dependency is easily removed by deleting a few lines.
 
 Comments, suggestions, and pull requests are encouraged!

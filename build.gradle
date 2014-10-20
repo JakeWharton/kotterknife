@@ -52,3 +52,5 @@ android {
     androidTest.java.srcDirs += 'src/androidTest/kotlin'
   }
 }
+
+apply from: file('gradle/gradle-mvn-push.gradle')
