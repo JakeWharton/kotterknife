@@ -30,12 +30,12 @@ public fun <T : View> Fragment.bindViews(vararg ids: Int): ReadOnlyProperty<Any,
 public fun <T : View> SupportFragment.bindViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = ViewListBinding(ids)
 public fun <T : View> ViewHolder.bindViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = ViewListBinding(ids)
 
-public fun <T : View> ViewGroup.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = ViewListBinding(ids)
-public fun <T : View> Activity.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = ViewListBinding(ids)
-public fun <T : View> Dialog.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = ViewListBinding(ids)
-public fun <T : View> Fragment.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = ViewListBinding(ids)
-public fun <T : View> SupportFragment.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = ViewListBinding(ids)
-public fun <T : View> ViewHolder.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = ViewListBinding(ids)
+public fun <T : View> ViewGroup.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
+public fun <T : View> Activity.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
+public fun <T : View> Dialog.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
+public fun <T : View> Fragment.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
+public fun <T : View> SupportFragment.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
+public fun <T : View> ViewHolder.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
 
 private fun findView<T : View>(thisRef: Any, id: Int): T? {
   [suppress("UNCHECKED_CAST")]
@@ -77,11 +77,11 @@ private class ViewListBinding<T : View>(val ids: IntArray) : ReadOnlyProperty<An
   }
 }
 
-private class OptionalViewListBinding<T : View>(val ids: IntArray) : ReadOnlyProperty<Any, List<T?>> {
-  private var lazy = Lazy<List<T?>>()
+private class OptionalViewListBinding<T : View>(val ids: IntArray) : ReadOnlyProperty<Any, List<T>> {
+  private var lazy = Lazy<List<T>>()
 
-  override fun get(thisRef: Any, desc: PropertyMetadata): List<T?> = lazy.get {
-    ids.map { id -> findView<T>(thisRef, id) }
+  override fun get(thisRef: Any, desc: PropertyMetadata): List<T> = lazy.get {
+    ids.map { id -> findView<T>(thisRef, id) }.filterNotNull()
   }
 }
 

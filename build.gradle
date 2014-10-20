@@ -31,7 +31,6 @@ android {
   buildToolsVersion '21.0.1'
 
   defaultConfig {
-    applicationId 'com.squareup.people'
     versionCode 1
     versionName '2.0'
 
@@ -50,5 +49,6 @@ android {
 
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
+    androidTest.java.srcDirs += 'src/androidTest/kotlin'
   }
 }
