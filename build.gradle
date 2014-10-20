@@ -1,0 +1,54 @@
+buildscript {
+  ext.kotlinVersion = '0.9.66'
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:0.13.3'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+  // TODO make these provided? sibling modules?
+  compile 'com.android.support:support-v4:21.0.0'
+  compile 'com.android.support:recyclerview-v7:21.0.0'
+}
+
+android {
+  compileSdkVersion 21
+  buildToolsVersion '21.0.1'
+
+  defaultConfig {
+    applicationId 'com.squareup.people'
+    versionCode 1
+    versionName '2.0'
+
+    minSdkVersion 7
+    targetSdkVersion 21
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
+}
