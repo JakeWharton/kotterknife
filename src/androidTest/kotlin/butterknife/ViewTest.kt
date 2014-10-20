@@ -41,6 +41,18 @@ public class ViewTest : AndroidTestCase() {
     assertNull(example.name)
   }
 
+  public fun testOptionalCached() {
+    class Example(context: Context) : FrameLayout(context) {
+      val name : View? by bindOptionalView(1)
+    }
+
+    val example = Example(getContext())
+    example.addView(viewWithId(1))
+    assertNotNull(example.name)
+    example.removeAllViews()
+    assertNotNull(example.name)
+  }
+
   public fun testMissingFails() {
     class Example(context: Context) : FrameLayout(context) {
       val name : TextView? by bindView(1)
@@ -63,6 +75,22 @@ public class ViewTest : AndroidTestCase() {
     example.addView(viewWithId(1))
     example.addView(viewWithId(2))
     example.addView(viewWithId(3))
+    assertNotNull(example.name)
+    assertEquals(3, example.name.size)
+  }
+
+  public fun testListCaches() {
+    class Example(context: Context) : FrameLayout(context) {
+      val name : List<TextView> by bindViews(1, 2, 3)
+    }
+
+    val example = Example(getContext())
+    example.addView(viewWithId(1))
+    example.addView(viewWithId(2))
+    example.addView(viewWithId(3))
+    assertNotNull(example.name)
+    assertEquals(3, example.name.size)
+    example.removeAllViews()
     assertNotNull(example.name)
     assertEquals(3, example.name.size)
   }
@@ -90,6 +118,21 @@ public class ViewTest : AndroidTestCase() {
     val example = Example(getContext())
     example.addView(viewWithId(1))
     example.addView(viewWithId(3))
+    assertNotNull(example.name)
+    assertEquals(2, example.name.size)
+  }
+
+  public fun testOptionalListCaches() {
+    class Example(context: Context) : FrameLayout(context) {
+      val name : List<TextView> by bindOptionalViews(1, 2, 3)
+    }
+
+    val example = Example(getContext())
+    example.addView(viewWithId(1))
+    example.addView(viewWithId(3))
+    assertNotNull(example.name)
+    assertEquals(2, example.name.size)
+    example.removeAllViews()
     assertNotNull(example.name)
     assertEquals(2, example.name.size)
   }
