@@ -8,11 +8,26 @@ android:
   licenses:
     - android-sdk-license-5be876d5
 
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+
 before_script:
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
+
+script:
+  - ./gradlew clean check
+
+after_success:
+  - .buildscript/deploy_snapshot.sh
+
+env:
+  global:
+    - secure: "amz+2SCRt5S3FaDiqq6WhgdFW0lLjaAJWs8NmmUa1EX4/qU2NsLAFgTUPQmGMu7wqyLgGDcnloyYZTqvSl9d0g0KO10btrtZAFnRXR8GbXA9ca9jqASt2mIQQ4UCKw6zsqyToEsjkaEy+IrYdq7En1EKvgF9W7sxae5HiI+bijw="
+    - secure: "YcF37d5xm9jFqKeueXLPHAgve2DPxk3IaXqJ1bBVyufVHBlXsc1vs7WatQwPgtyfX5ZBdrh0APW1PaFz3XRzlee+82iRL5R6iUHJnZVaZzT8a/OkAZsriMHXGsmB0VW2fs1eomV7kapqP8Zff/yCvEbp3JmLWVlhJUK4M+9FSFk="
 
 branches:
   except:
@@ -20,3 +35,9 @@ branches:
 
 notifications:
   email: false
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.gradle
