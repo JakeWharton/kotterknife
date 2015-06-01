@@ -4,6 +4,7 @@ android:
   components:
     - build-tools-22.0.1
     - android-22
+    - extra-android-m2repository
     - sys-img-armeabi-v7a-android-21
   licenses:
     - android-sdk-license-5be876d5
