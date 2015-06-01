@@ -83,7 +83,7 @@ public class ViewTest : AndroidTestCase() {
     example.addView(viewWithId(2))
     example.addView(viewWithId(3))
     assertNotNull(example.name)
-    assertEquals(3, example.name.size)
+    assertEquals(3, example.name.size())
   }
 
   public fun testListCaches() {
@@ -96,10 +96,10 @@ public class ViewTest : AndroidTestCase() {
     example.addView(viewWithId(2))
     example.addView(viewWithId(3))
     assertNotNull(example.name)
-    assertEquals(3, example.name.size)
+    assertEquals(3, example.name.size())
     example.removeAllViews()
     assertNotNull(example.name)
-    assertEquals(3, example.name.size)
+    assertEquals(3, example.name.size())
   }
 
   public fun testListMissingFails() {
@@ -126,7 +126,7 @@ public class ViewTest : AndroidTestCase() {
     example.addView(viewWithId(1))
     example.addView(viewWithId(3))
     assertNotNull(example.name)
-    assertEquals(2, example.name.size)
+    assertEquals(2, example.name.size())
   }
 
   public fun testOptionalListCaches() {
@@ -138,10 +138,10 @@ public class ViewTest : AndroidTestCase() {
     example.addView(viewWithId(1))
     example.addView(viewWithId(3))
     assertNotNull(example.name)
-    assertEquals(2, example.name.size)
+    assertEquals(2, example.name.size())
     example.removeAllViews()
     assertNotNull(example.name)
-    assertEquals(2, example.name.size)
+    assertEquals(2, example.name.size())
   }
 
   private fun viewWithId(id: Int) : View {

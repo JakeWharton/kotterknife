@@ -38,7 +38,7 @@ public fun <T : View> SupportFragment.bindOptionalViews(vararg ids: Int): ReadOn
 public fun <T : View> ViewHolder.bindOptionalViews(vararg ids: Int): ReadOnlyProperty<Any, List<T>> = OptionalViewListBinding(ids)
 
 private fun findView<T : View>(thisRef: Any, id: Int): T? {
-  [suppress("UNCHECKED_CAST")]
+  @suppress("UNCHECKED_CAST")
   return when (thisRef) {
     is View -> thisRef.findViewById(id)
     is Activity -> thisRef.findViewById(id)
@@ -93,7 +93,7 @@ private class Lazy<T> {
     if (value == EMPTY) {
       value = initializer.invoke()
     }
-    [suppress("UNCHECKED_CAST")]
+    @suppress("UNCHECKED_CAST")
     return value as T
   }
 }
