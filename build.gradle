@@ -22,8 +22,8 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
   // TODO make these provided? sibling modules?
-  compile 'com.android.support:support-v4:21.0.0'
-  compile 'com.android.support:recyclerview-v7:21.0.0'
+  compile 'com.android.support:support-v4:22.2.0'
+  compile 'com.android.support:recyclerview-v7:22.2.0'
 }
 
 android {
