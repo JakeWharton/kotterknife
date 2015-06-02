@@ -10,7 +10,6 @@ android:
     - android-sdk-license-5be876d5
 
 jdk:
-  - oraclejdk7
   - oraclejdk8
 
 before_script:
