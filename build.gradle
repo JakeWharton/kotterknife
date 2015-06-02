@@ -1,12 +1,12 @@
 buildscript {
-  ext.kotlinVersion = '0.11.91.1'
+  ext.kotlinVersion = '0.12.200'
 
   repositories {
     mavenCentral()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:0.13.3'
+    classpath 'com.android.tools.build:gradle:1.2.3'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
   }
 }
@@ -22,13 +22,13 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
   // TODO make these provided? sibling modules?
-  compile 'com.android.support:support-v4:21.0.0'
-  compile 'com.android.support:recyclerview-v7:21.0.0'
+  compile 'com.android.support:support-v4:22.2.0'
+  compile 'com.android.support:recyclerview-v7:22.2.0'
 }
 
 android {
-  compileSdkVersion 21
-  buildToolsVersion '21.0.1'
+  compileSdkVersion 22
+  buildToolsVersion '22.0.1'
 
   defaultConfig {
     versionCode 1
