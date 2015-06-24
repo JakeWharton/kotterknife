@@ -73,37 +73,37 @@ private fun findView<V : View>(thisRef: Any, id: Int): V? {
   } as V?
 }
 
-private class ViewBinding<V : View>(val id: Int) : ReadOnlyProperty<Any, V> {
+private class ViewBinding<T, V : View>(val id: Int) : ReadOnlyProperty<T, V> {
   private val lazy = Lazy<V>()
 
-  override fun get(thisRef: Any, desc: PropertyMetadata): V = lazy.get {
+  override fun get(thisRef: T, desc: PropertyMetadata): V = lazy.get {
     findView<V>(thisRef, id)
         ?: throw IllegalStateException("View ID $id for '${desc.name}' not found.")
   }
 }
 
-private class OptionalViewBinding<V : View>(val id: Int) : ReadOnlyProperty<Any, V?> {
+private class OptionalViewBinding<T, V : View>(val id: Int) : ReadOnlyProperty<T, V?> {
   private val lazy = Lazy<V?>()
 
-  override fun get(thisRef: Any, desc: PropertyMetadata): V? = lazy.get {
+  override fun get(thisRef: T, desc: PropertyMetadata): V? = lazy.get {
     findView<V>(thisRef, id)
   }
 }
 
-private class ViewListBinding<V : View>(val ids: IntArray) : ReadOnlyProperty<Any, List<V>> {
+private class ViewListBinding<T, V : View>(val ids: IntArray) : ReadOnlyProperty<T, List<V>> {
   private var lazy = Lazy<List<V>>()
 
-  override fun get(thisRef: Any, desc: PropertyMetadata): List<V> = lazy.get {
+  override fun get(thisRef: T, desc: PropertyMetadata): List<V> = lazy.get {
     ids.map { id -> findView<V>(thisRef, id)
         ?: throw IllegalStateException("View ID $id for '${desc.name}' not found.")
     }
   }
 }
 
-private class OptionalViewListBinding<V : View>(val ids: IntArray) : ReadOnlyProperty<Any, List<V>> {
+private class OptionalViewListBinding<T, V : View>(val ids: IntArray) : ReadOnlyProperty<T, List<V>> {
   private var lazy = Lazy<List<V>>()
 
-  override fun get(thisRef: Any, desc: PropertyMetadata): List<V> = lazy.get {
+  override fun get(thisRef: T, desc: PropertyMetadata): List<V> = lazy.get {
     ids.map { id -> findView<V>(thisRef, id) }.filterNotNull()
   }
 }
