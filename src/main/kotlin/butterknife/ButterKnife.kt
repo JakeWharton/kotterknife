@@ -60,8 +60,7 @@ public fun <V : View> SupportFragment.bindOptionalViews(vararg ids: Int)
 public fun <V : View> ViewHolder.bindOptionalViews(vararg ids: Int)
     : ReadOnlyProperty<ViewHolder, List<V>> = OptionalViewListBinding(ids)
 
-private fun findView<V : View>(thisRef: Any, id: Int): V? {
-  @suppress("UNCHECKED_CAST")
+private fun findView(thisRef: Any, id: Int): View? {
   return when (thisRef) {
     is View -> thisRef.findViewById(id)
     is Activity -> thisRef.findViewById(id)
@@ -70,14 +69,15 @@ private fun findView<V : View>(thisRef: Any, id: Int): V? {
     is SupportFragment -> thisRef.getView().findViewById(id)
     is ViewHolder -> thisRef.itemView.findViewById(id)
     else -> throw IllegalStateException("Unable to find views on type.")
-  } as V?
+  }
 }
 
 private class ViewBinding<T, V : View>(val id: Int) : ReadOnlyProperty<T, V> {
   private val lazy = Lazy<V>()
 
+  suppress("UNCHECKED_CAST")
   override fun get(thisRef: T, desc: PropertyMetadata): V = lazy.get {
-    findView<V>(thisRef, id)
+    findView(thisRef, id) as V?
         ?: throw IllegalStateException("View ID $id for '${desc.name}' not found.")
   }
 }
@@ -85,16 +85,18 @@ private class ViewBinding<T, V : View>(val id: Int) : ReadOnlyProperty<T, V> {
 private class OptionalViewBinding<T, V : View>(val id: Int) : ReadOnlyProperty<T, V?> {
   private val lazy = Lazy<V?>()
 
+  suppress("UNCHECKED_CAST")
   override fun get(thisRef: T, desc: PropertyMetadata): V? = lazy.get {
-    findView<V>(thisRef, id)
+    findView(thisRef, id) as V?
   }
 }
 
 private class ViewListBinding<T, V : View>(val ids: IntArray) : ReadOnlyProperty<T, List<V>> {
   private var lazy = Lazy<List<V>>()
 
+  suppress("UNCHECKED_CAST")
   override fun get(thisRef: T, desc: PropertyMetadata): List<V> = lazy.get {
-    ids.map { id -> findView<V>(thisRef, id)
+    ids.map { id -> findView(thisRef, id) as V?
         ?: throw IllegalStateException("View ID $id for '${desc.name}' not found.")
     }
   }
@@ -103,8 +105,9 @@ private class ViewListBinding<T, V : View>(val ids: IntArray) : ReadOnlyProperty
 private class OptionalViewListBinding<T, V : View>(val ids: IntArray) : ReadOnlyProperty<T, List<V>> {
   private var lazy = Lazy<List<V>>()
 
+  suppress("UNCHECKED_CAST")
   override fun get(thisRef: T, desc: PropertyMetadata): List<V> = lazy.get {
-    ids.map { id -> findView<V>(thisRef, id) }.filterNotNull()
+    ids.map { id -> findView(thisRef, id) as V? }.filterNotNull()
   }
 }
 
