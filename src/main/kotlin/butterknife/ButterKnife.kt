@@ -60,14 +60,9 @@ public fun <V : View> SupportFragment.bindOptionalViews(vararg ids: Int)
 public fun <V : View> ViewHolder.bindOptionalViews(vararg ids: Int)
     : ReadOnlyProperty<ViewHolder, List<V>> = OptionalViewListBinding(ids, ::findView)
 
-private fun Any.findView(id: Int): View? {
-  return when (this) {
-    is Fragment -> getView().findViewById(id)
-    is SupportFragment -> getView().findViewById(id)
-    is ViewHolder -> itemView.findViewById(id)
-    else -> throw IllegalStateException("Unable to find views on type.")
-  }
-}
+private fun Fragment.findView(id: Int): View? = getView().findViewById(id)
+private fun SupportFragment.findView(id: Int): View? = getView().findViewById(id)
+private fun ViewHolder.findView(id: Int): View? = itemView.findViewById(id)
 
 private class ViewBinding<T, V : View>(val id: Int, val findView: T.(Int) -> View?)
     : ReadOnlyProperty<T, V> {
