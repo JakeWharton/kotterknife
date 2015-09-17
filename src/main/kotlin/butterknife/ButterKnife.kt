@@ -67,28 +67,28 @@ private val Activity.viewFinder: Activity.(Int) -> View?
 private val Dialog.viewFinder: Dialog.(Int) -> View?
     get() = Dialog::findViewById
 private val Fragment.viewFinder: Fragment.(Int) -> View?
-    get() = { getView().findViewById(it) }
+    get() = { view.findViewById(it) }
 private val SupportFragment.viewFinder: SupportFragment.(Int) -> View?
-    get() = { getView().findViewById(it) }
+    get() = { view.findViewById(it) }
 private val ViewHolder.viewFinder: ViewHolder.(Int) -> View?
     get() = { itemView.findViewById(it) }
 
 private fun viewNotFound(id:Int, desc: PropertyMetadata) =
     throw IllegalStateException("View ID $id for '${desc.name}' not found.")
 
-suppress("UNCHECKED_CAST")
+@Suppress("UNCHECKED_CAST")
 private fun required<T, V : View>(id: Int, finder : T.(Int) -> View?)
     = Lazy { t : T, desc -> t.finder(id) as V? ?: viewNotFound(id, desc) }
 
-suppress("UNCHECKED_CAST")
+@Suppress("UNCHECKED_CAST")
 private fun optional<T, V : View>(id: Int, finder : T.(Int) -> View?)
     = Lazy { t : T, desc ->  t.finder(id) as V? }
 
-suppress("UNCHECKED_CAST")
+@Suppress("UNCHECKED_CAST")
 private fun required<T, V : View>(ids: IntArray, finder : T.(Int) -> View?)
     = Lazy { t : T, desc -> ids.map { t.finder(it) as V? ?: viewNotFound(it, desc) } }
 
-suppress("UNCHECKED_CAST")
+@Suppress("UNCHECKED_CAST")
 private fun optional<T, V : View>(ids: IntArray, finder : T.(Int) -> View?)
     = Lazy { t : T, desc -> ids.map { t.finder(it) as V? }.filterNotNull() }
 
@@ -101,7 +101,7 @@ private class Lazy<T, V>(private val initializer : (T, PropertyMetadata) -> V) :
     if (value == EMPTY) {
       value = initializer(thisRef, desc)
     }
-    @suppress("UNCHECKED_CAST")
+    @Suppress("UNCHECKED_CAST")
     return value as V
   }
 }
