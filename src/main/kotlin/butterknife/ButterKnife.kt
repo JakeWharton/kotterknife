@@ -97,9 +97,9 @@ private class Lazy<T, V>(private val initializer : (T, PropertyMetadata) -> V) :
   private object EMPTY
   private var value: Any? = EMPTY
 
-  override fun get(thisRef: T, desc: PropertyMetadata): V {
+  override fun get(thisRef: T, property: PropertyMetadata): V {
     if (value == EMPTY) {
-      value = initializer(thisRef, desc)
+      value = initializer(thisRef, property)
     }
     @Suppress("UNCHECKED_CAST")
     return value as V
