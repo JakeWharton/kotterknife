@@ -97,7 +97,7 @@ private class Lazy<T, V>(private val initializer : (T, PropertyMetadata) -> V) :
   private object EMPTY
   private var value: Any? = EMPTY
 
-  override fun get(thisRef: T, property: PropertyMetadata): V {
+  override operator fun get(thisRef: T, property: PropertyMetadata): V {
     if (value == EMPTY) {
       value = initializer(thisRef, property)
     }
