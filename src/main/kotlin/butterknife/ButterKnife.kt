@@ -77,23 +77,23 @@ private fun viewNotFound(id:Int, desc: PropertyMetadata) =
     throw IllegalStateException("View ID $id for '${desc.name}' not found.")
 
 @Suppress("UNCHECKED_CAST")
-private fun required<T, V : View>(id: Int, finder : T.(Int) -> View?)
-    = Lazy { t : T, desc -> t.finder(id) as V? ?: viewNotFound(id, desc) }
+private fun required<T, V : View>(id: Int, finder: T.(Int) -> View?)
+    = Lazy { t: T, desc -> t.finder(id) as V? ?: viewNotFound(id, desc) }
 
 @Suppress("UNCHECKED_CAST")
-private fun optional<T, V : View>(id: Int, finder : T.(Int) -> View?)
-    = Lazy { t : T, desc ->  t.finder(id) as V? }
+private fun optional<T, V : View>(id: Int, finder: T.(Int) -> View?)
+    = Lazy { t: T, desc ->  t.finder(id) as V? }
 
 @Suppress("UNCHECKED_CAST")
-private fun required<T, V : View>(ids: IntArray, finder : T.(Int) -> View?)
-    = Lazy { t : T, desc -> ids.map { t.finder(it) as V? ?: viewNotFound(it, desc) } }
+private fun required<T, V : View>(ids: IntArray, finder: T.(Int) -> View?)
+    = Lazy { t: T, desc -> ids.map { t.finder(it) as V? ?: viewNotFound(it, desc) } }
 
 @Suppress("UNCHECKED_CAST")
-private fun optional<T, V : View>(ids: IntArray, finder : T.(Int) -> View?)
-    = Lazy { t : T, desc -> ids.map { t.finder(it) as V? }.filterNotNull() }
+private fun optional<T, V : View>(ids: IntArray, finder: T.(Int) -> View?)
+    = Lazy { t: T, desc -> ids.map { t.finder(it) as V? }.filterNotNull() }
 
 // Like Kotlin's lazy delegate but the initializer gets the target and metadata passed to it
-private class Lazy<T, V>(private val initializer : (T, PropertyMetadata) -> V) : ReadOnlyProperty<T, V> {
+private class Lazy<T, V>(private val initializer: (T, PropertyMetadata) -> V) : ReadOnlyProperty<T, V> {
   private object EMPTY
   private var value: Any? = EMPTY
 
