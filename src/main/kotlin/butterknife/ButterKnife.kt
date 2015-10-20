@@ -61,11 +61,11 @@ public fun <V : View> ViewHolder.bindOptionalViews(vararg ids: Int)
     : ReadOnlyProperty<ViewHolder, List<V>> = optional(ids, viewFinder)
 
 private val View.viewFinder: View.(Int) -> View?
-    get() = View::findViewById
+    get() = { findViewById(it) }
 private val Activity.viewFinder: Activity.(Int) -> View?
-    get() = Activity::findViewById
+    get() = { findViewById(it) }
 private val Dialog.viewFinder: Dialog.(Int) -> View?
-    get() = Dialog::findViewById
+    get() = { findViewById(it) }
 private val Fragment.viewFinder: Fragment.(Int) -> View?
     get() = { view.findViewById(it) }
 private val SupportFragment.viewFinder: SupportFragment.(Int) -> View?
