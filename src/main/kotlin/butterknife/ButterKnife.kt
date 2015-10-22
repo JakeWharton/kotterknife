@@ -3,10 +3,11 @@ package butterknife
 import android.app.Activity
 import android.app.Dialog
 import android.app.Fragment
-import android.support.v4.app.Fragment as SupportFragment
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View
 import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
+import android.support.v4.app.Fragment as SupportFragment
 
 public fun <V : View> View.bindView(id: Int)
     : ReadOnlyProperty<View, V> = required(id, viewFinder)
@@ -73,7 +74,7 @@ private val SupportFragment.viewFinder: SupportFragment.(Int) -> View?
 private val ViewHolder.viewFinder: ViewHolder.(Int) -> View?
     get() = { itemView.findViewById(it) }
 
-private fun viewNotFound(id:Int, desc: PropertyMetadata) =
+private fun viewNotFound(id:Int, desc: KProperty<*>): Nothing =
     throw IllegalStateException("View ID $id for '${desc.name}' not found.")
 
 @Suppress("UNCHECKED_CAST")
@@ -93,11 +94,11 @@ private fun <T, V : View> optional(ids: IntArray, finder: T.(Int) -> View?)
     = Lazy { t: T, desc -> ids.map { t.finder(it) as V? }.filterNotNull() }
 
 // Like Kotlin's lazy delegate but the initializer gets the target and metadata passed to it
-private class Lazy<T, V>(private val initializer: (T, PropertyMetadata) -> V) : ReadOnlyProperty<T, V> {
+private class Lazy<T, V>(private val initializer: (T, KProperty<*>) -> V) : ReadOnlyProperty<T, V> {
   private object EMPTY
   private var value: Any? = EMPTY
 
-  override operator fun get(thisRef: T, property: PropertyMetadata): V {
+  override fun getValue(thisRef: T, property: KProperty<*>): V {
     if (value == EMPTY) {
       value = initializer(thisRef, property)
     }
