@@ -69,7 +69,7 @@ public class ViewTest : AndroidTestCase() {
     try {
       example.name
     } catch (e: IllegalStateException) {
-      assertEquals("View ID 1 for 'name' not found.", e.getMessage())
+      assertEquals("View ID 1 for 'name' not found.", e.message)
     }
   }
 
@@ -83,7 +83,7 @@ public class ViewTest : AndroidTestCase() {
     example.addView(viewWithId(2))
     example.addView(viewWithId(3))
     assertNotNull(example.name)
-    assertEquals(3, example.name.size())
+    assertEquals(3, example.name.count())
   }
 
   public fun testListCaches() {
@@ -96,10 +96,10 @@ public class ViewTest : AndroidTestCase() {
     example.addView(viewWithId(2))
     example.addView(viewWithId(3))
     assertNotNull(example.name)
-    assertEquals(3, example.name.size())
+    assertEquals(3, example.name.count())
     example.removeAllViews()
     assertNotNull(example.name)
-    assertEquals(3, example.name.size())
+    assertEquals(3, example.name.count())
   }
 
   public fun testListMissingFails() {
@@ -113,7 +113,7 @@ public class ViewTest : AndroidTestCase() {
     try {
       example.name
     } catch (e: IllegalStateException) {
-      assertEquals("View ID 2 for 'name' not found.", e.getMessage())
+      assertEquals("View ID 2 for 'name' not found.", e.message)
     }
   }
 
@@ -126,7 +126,7 @@ public class ViewTest : AndroidTestCase() {
     example.addView(viewWithId(1))
     example.addView(viewWithId(3))
     assertNotNull(example.name)
-    assertEquals(2, example.name.size())
+    assertEquals(2, example.name.count())
   }
 
   public fun testOptionalListCaches() {
@@ -138,10 +138,10 @@ public class ViewTest : AndroidTestCase() {
     example.addView(viewWithId(1))
     example.addView(viewWithId(3))
     assertNotNull(example.name)
-    assertEquals(2, example.name.size())
+    assertEquals(2, example.name.count())
     example.removeAllViews()
     assertNotNull(example.name)
-    assertEquals(2, example.name.size())
+    assertEquals(2, example.name.count())
   }
 
   private fun viewWithId(id: Int) : View {
