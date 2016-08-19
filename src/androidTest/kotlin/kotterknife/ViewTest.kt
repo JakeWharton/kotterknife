@@ -1,4 +1,4 @@
-package butterknife
+package kotterknife
 
 import android.content.Context
 import android.widget.FrameLayout
