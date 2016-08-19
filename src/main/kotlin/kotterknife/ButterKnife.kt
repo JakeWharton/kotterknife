@@ -1,4 +1,4 @@
-package butterknife
+package kotterknife
 
 import android.app.Activity
 import android.app.Dialog
