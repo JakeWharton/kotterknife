@@ -2,12 +2,9 @@ language: android
 
 android:
   components:
-    - build-tools-22.0.1
-    - android-23
-    - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-21
-  licenses:
-    - android-sdk-license-5be876d5
+    # Update tools and then platform-tools explicitly so lint gets an updated database. Can be removed once 3.0 is out.
+    - tools
+    - platform-tools
 
 jdk:
   - oraclejdk8
@@ -49,6 +46,12 @@ notifications:
 
 sudo: false
 
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
-    - $HOME/.gradle
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
