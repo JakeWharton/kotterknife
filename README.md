@@ -1,6 +1,10 @@
 Kotter Knife
 ============
 
+**Deprecated**: This was a terrible idea because it allocates an object for every view reference.
+Do not use, and do not use anything like it.
+Use [view binding](https://developer.android.com/topic/libraries/view-binding) instead.
+
 ![](art/logo.png)
 
 [Butter Knife][1]-esque view binding for Kotlin.
